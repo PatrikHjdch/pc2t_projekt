@@ -7,4 +7,14 @@ public class Hrany extends Film{
 		this.rok=c;
 		this.hodnoceni=d;
 	}
+	
+	public int getHranyHodnoceni() {
+		return hranyHodnoceni;
+	}
+
+	public void setHranyHodnoceni(int hranyHodnoceni) {
+		this.hranyHodnoceni = hranyHodnoceni;
+	}
+
+	private int hranyHodnoceni;
 }

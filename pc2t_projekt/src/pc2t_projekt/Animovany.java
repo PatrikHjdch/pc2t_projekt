@@ -17,5 +17,14 @@ public class Animovany extends Film {
 		this.vekDivaka = vekDivaka;
 	}
 
+	public int getAnimovaneHodnoceni() {
+		return animovaneHodnoceni;
+	}
+
+	public void setAnimovaneHodnoceni(int animovaneHodnoceni) {
+		this.animovaneHodnoceni = animovaneHodnoceni;
+	}
+
 	private int vekDivaka;
+	private int animovaneHodnoceni;
 }

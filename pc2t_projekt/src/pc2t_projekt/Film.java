@@ -25,15 +25,8 @@ abstract public class Film {
 		this.rok = rok;
 	}
 
-	public float getHodnoceni() {
-		return hodnoceni;
-	}
-	public void setHodnoceni(float hodnoceni) {
-		this.hodnoceni = hodnoceni;
-	}
 
 	protected String nazev;
 	protected String reziser;
 	protected int rok;
-	protected float hodnoceni;
 }
