@@ -38,7 +38,7 @@ public class Main {
 		
 		while(run)
 		{
-			System.out.println("Vyberte pozadovanou cinnost:");
+			System.out.println("-------------\nVyberte pozadovanou cinnost:\n");
 			System.out.println("1 .. Pridani noveho filmu");
 			System.out.println("2 .. Upraveni filmu");
 			System.out.println("3 .. Smazani filmu");
@@ -66,14 +66,16 @@ public class Main {
 				
 				System.out.println("Rok vydani:");
 				int rok =  pouzeCelaCisla(sc);
-				
+				String meno;
 				switch(typ) {
 					case 1:
 						databazeFilmu.add(new Hrany(jmeno, reziser, rok));
-						
 						System.out.println("Seznam hercu (\"0\" pro dokonceni):");
-						while(sc.nextInt()!=0) {
-							((Hrany) databazeFilmu.get(databazeFilmu.size()-1)).addHerec(new Herec(sc.nextLine()));
+						sc.nextLine();
+						meno = sc.nextLine();
+						while(!meno.equals("0")) {
+							((Hrany) databazeFilmu.get(databazeFilmu.size()-1)).addHerec(new Herec(meno));
+							meno = sc.nextLine();
 						}
 						break;
 					case 2:
@@ -82,8 +84,11 @@ public class Main {
 						databazeFilmu.add(new Animovany(jmeno, reziser, rok, vekDivaka));
 
 						System.out.println("Seznam animatoru (\"0\" pro dokonceni):");
-						while(sc.nextInt()!=0) {
-							((Animovany) databazeFilmu.get(databazeFilmu.size()-1)).addAnimator(new Animator(sc.nextLine()));
+						sc.nextLine();
+						meno = sc.nextLine();
+						while(!meno.equals("0")) {
+							((Animovany) databazeFilmu.get(databazeFilmu.size()-1)).addAnimator(new Animator(meno));
+							meno = sc.nextLine();
 						}
 						break;
 				}
@@ -117,34 +122,37 @@ public class Main {
 						case 3:
 							sc.nextLine();
 							System.out.println("Novy nazev: ");
-							databazeFilmu.get(i).setRok(sc.nextInt());
+							databazeFilmu.get(i).setRok(pouzeCelaCisla(sc));
 							System.out.println("Nazev zmenen");
 							break;
 						case 4:
 							String pridani;
 							if(databazeFilmu.get(i).getClass().getName()=="pc2t_projekt.Animovany") 
 							{
-								System.out.println("p .. Pridani animatoru\no .. odebrani animatoru");
+								System.out.println("p .. Pridani animatoru\no .. Odebrani animatoru");
+								sc.nextLine();
 								pridani = sc.nextLine();
 								if (pridani.equals("p"))
 								{
 									System.out.println("Pridavani animatoru (\"0\" pro dokonceni):");
-									sc.nextLine();
-									while(sc.nextInt()!=0) {
-										((Animovany) databazeFilmu.get(databazeFilmu.size()-1)).addAnimator(new Animator(sc.nextLine()));
+									meno = sc.next();
+									while(!meno.equals("0")) {
+										((Animovany) databazeFilmu.get(i)).addAnimator(new Animator(meno));
+										meno = sc.next();
 									}
 								}
 								else {
 									System.out.println("Mazani animatoru (\"0\" pro dokonceni):");
-									sc.nextLine();
-									while(sc.nextInt()!=0) 
+									meno = sc.nextLine();
+									while(!meno.equals("0")) 
 									{
 										for (int j=0;j<((Animovany) databazeFilmu.get(i)).getSeznamAnimatoru().size();j++)
-										if (sc.nextLine().equals(((Animovany) databazeFilmu.get(i)).getSeznamAnimatoru().get(j).getJmeno())) 
+										if (meno.equals(((Animovany) databazeFilmu.get(i)).getSeznamAnimatoru().get(j).getJmeno())) 
 										{
+											System.out.print("Animator "+((Animovany) databazeFilmu.get(i)).getSeznamAnimatoru().get(j).getJmeno()+" byl vymazan.\n");
 											((Animovany) databazeFilmu.get(i)).removeAnimator(((Animovany) databazeFilmu.get(i)).getSeznamAnimatoru().get(j));
-											System.out.print("Animator"+((Animovany) databazeFilmu.get(i)).getSeznamAnimatoru().get(j).getJmeno()+" byl vymazan.\n");
 										}
+										meno = sc.nextLine();
 									}
 								}
 								
@@ -152,28 +160,31 @@ public class Main {
 							} 
 							else 
 							{
-								System.out.println("p .. Pridani hercu\no .. odebrani hercu");
+								System.out.println("p .. Pridani hercu\no .. Odebrani hercu");
+								sc.nextLine();
 								pridani = sc.nextLine();
 								if (pridani.equals("p"))
 								{
 									System.out.println("Pridavani hercu (\"0\" pro dokonceni):");
-									sc.nextLine();
-									while(sc.nextInt()!=0) 
+									meno=sc.nextLine();
+									while(!meno.equals("0")) 
 									{
-										((Hrany) databazeFilmu.get(databazeFilmu.size()-1)).addHerec(new Herec(sc.nextLine()));
+										((Hrany) databazeFilmu.get(i)).addHerec(new Herec(meno));
+										meno = sc.nextLine();
 									}
 								}
 								else {
 									System.out.println("Mazani hercu (\"0\" pro dokonceni):");
-									sc.nextLine();
-									while(sc.nextInt()!=0) 
+									meno = sc.nextLine();
+									while(!meno.equals("0")) 
 									{
 										for (int j=0;j<((Hrany) databazeFilmu.get(i)).getSeznamHercu().size();j++)
-										if (sc.nextLine().equals(((Hrany) databazeFilmu.get(i)).getSeznamHercu().get(j).getJmeno())) 
+										if (meno.equals(((Hrany) databazeFilmu.get(i)).getSeznamHercu().get(j).getJmeno())) 
 										{
+											System.out.print("Herec "+((Hrany) databazeFilmu.get(i)).getSeznamHercu().get(j).getJmeno()+" byl vymazan.\n");
 											((Hrany) databazeFilmu.get(i)).removeHerec(((Hrany) databazeFilmu.get(i)).getSeznamHercu().get(j));
-											System.out.print("Herec"+((Hrany) databazeFilmu.get(i)).getSeznamHercu().get(j).getJmeno()+" byl vymazan.\n");
 										}
+										meno = sc.nextLine();
 									}
 								}
 								
@@ -238,7 +249,12 @@ public class Main {
 				run = false;
 				break;
 				
-		}		
+		}
+		if(run) {
+			System.out.println("\n\nZmacknete ENTER pro pokracovani");
+			sc.nextLine();
+			sc.nextLine();
+			}
 		}
 	}
 
