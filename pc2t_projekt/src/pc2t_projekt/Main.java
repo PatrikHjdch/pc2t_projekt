@@ -106,25 +106,26 @@ public class Main {
 							sc.nextLine();
 							System.out.println("Novy nazev: ");
 							databazeFilmu.get(i).setNazev(sc.nextLine());
-							System.out.println("Nazev zmnenen");
+							System.out.println("Nazev zmenen");
 							break;
 						case 2: 
 							sc.nextLine();
 							System.out.println("Novy reziser: ");
 							databazeFilmu.get(i).setReziser(new Reziser (sc.nextLine()));
-							System.out.println("Reziser zmnenen");
+							System.out.println("Reziser zmenen");
 							break;
 						case 3:
 							sc.nextLine();
 							System.out.println("Novy nazev: ");
 							databazeFilmu.get(i).setRok(sc.nextInt());
-							System.out.println("Nazev zmnenen");
+							System.out.println("Nazev zmenen");
 							break;
 						case 4:
-							System.out.println("p .. Pridani hercu\no .. odebrani hercu");
-							String pridani = sc.nextLine();
+							String pridani;
 							if(databazeFilmu.get(i).getClass().getName()=="pc2t_projekt.Animovany") 
 							{
+								System.out.println("p .. Pridani animatoru\no .. odebrani animatoru");
+								pridani = sc.nextLine();
 								if (pridani.equals("p"))
 								{
 									System.out.println("Pridavani animatoru (\"0\" pro dokonceni):");
@@ -151,6 +152,8 @@ public class Main {
 							} 
 							else 
 							{
+								System.out.println("p .. Pridani hercu\no .. odebrani hercu");
+								pridani = sc.nextLine();
 								if (pridani.equals("p"))
 								{
 									System.out.println("Pridavani hercu (\"0\" pro dokonceni):");
@@ -180,11 +183,13 @@ public class Main {
 							try {
 							sc.nextLine();
 							System.out.println("Novy doporuceny vek divaka: ");
-							((Animovany) databazeFilmu.get(i)).setVekDivaka(sc.nextInt());
+							((Animovany) databazeFilmu.get(i)).setVekDivaka(pouzeCelaCisla(sc));
 							System.out.println("Vek zmnenen");														
 							break;
 							}
-							catch (Exception e){}
+							catch (Exception e){
+								System.out.println("Film neni animovany.");
+							}
 						}
 					}
 				}
