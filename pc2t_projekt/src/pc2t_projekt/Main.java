@@ -92,13 +92,14 @@ public class Main {
 			case 2:
 				break;
 			case 3:
+				
 				System.out.println("Nazev filmu pro smazani:");
 				sc.nextLine();
 				String jmenoSmazani = sc.nextLine();
 				for(int i=0; i<databazeFilmu.size();i++) {
-					if (jmenoSmazani==databazeFilmu.get(i).getNazev()) {
+					if (jmenoSmazani.equals(databazeFilmu.get(i).getNazev())) {
 						databazeFilmu.remove(i);
-						System.out.print("Film byl vymazan");
+						System.out.print("Film byl vymazan.\n");
 					}
 				}
 				break;
@@ -113,7 +114,8 @@ public class Main {
 							System.out.println(((Animovany) databazeFilmu.get(i)).getSeznamAnimatoru().get(j).getJmeno());
 						}
 					} else {
-						for(int j=0; j < ((Hrany) databazeFilmu.get(i)).getSeznamHercu().size();j++) {
+						System.out.println("Seznam hercu:");
+						for(int j=0; j < ((Hrany) databazeFilmu.get(i)).getSeznamHercu().size();j++) {			
 							System.out.println(((Hrany) databazeFilmu.get(i)).getSeznamHercu().get(j).getJmeno());
 						}
 					}
