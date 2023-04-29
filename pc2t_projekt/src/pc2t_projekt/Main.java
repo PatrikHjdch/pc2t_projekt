@@ -19,6 +19,33 @@ public class Main {
 		return cislo;
 	}
 	
+	public static float pouzeFloat(Scanner sc) 
+	{
+		float cislo = 0;
+		try
+		{
+			cislo = sc.nextFloat();
+		}
+		catch(Exception e)
+		{
+			System.out.println("Nastala vyjimka typu "+e.toString());
+			System.out.println("zadejte prosim realne cislo ");
+			sc.nextLine();
+			cislo = pouzeCelaCisla(sc);
+		}
+		return cislo;
+	}
+	
+	public static int findFilm(List<Film> databaze, String nazev) {
+		for(int i=0; i<databaze.size();i++) {
+			if (nazev.equals(databaze.get(i).getNazev())) {
+				return i;
+			}
+		}
+		return -1;
+		
+	}
+	
 	public static void main(String[] args) {
 		
 		List<Film> databazeFilmu = new ArrayList<>();
@@ -218,6 +245,28 @@ public class Main {
 				}
 				break;
 			case 4:
+				System.out.println("Nazev filmu:");
+				sc.nextLine();
+				String nazev = sc.nextLine();
+				int ind = findFilm(databazeFilmu, nazev);
+				if (ind==-1) {
+					System.out.println("Film nenalezen.");
+					break;
+				}
+				
+				float maxHodnoceni = 5;
+				if (databazeFilmu.get(ind).getClass().getName()=="pc2t_projekt.Animovany") {maxHodnoceni = 10;}
+				System.out.println("Skore (max "+maxHodnoceni+"):");
+				float skore = pouzeFloat(sc);
+				while (skore>maxHodnoceni || skore<1) {
+					System.out.println("Hodnoceni je mimo povoleny rozsah");
+					skore=pouzeFloat(sc);
+				}
+				sc.nextLine();
+				System.out.println("Slovni hodnoceni (nepovinne):");
+				String hodnoceni = sc.nextLine();
+				databazeFilmu.get(ind).addHodnoceni(new Hodnoceni(skore, hodnoceni));
+				
 				break;
 			case 5:
 				for(int i=0; i<databazeFilmu.size();i++) {
@@ -236,6 +285,31 @@ public class Main {
 				}
 				break;
 			case 6:
+				System.out.println("Nazev filmu:");
+				sc.nextLine();
+				String nazev1 = sc.nextLine();
+				int ind1 = findFilm(databazeFilmu, nazev1);
+				if (ind1==-1) {
+					System.out.println("Film nenalezen.");
+					break;
+				}
+				System.out.println("\nNazev: "+databazeFilmu.get(ind1).getNazev()+"\nReziser: "+databazeFilmu.get(ind1).getReziser().getJmeno()+"\nRok: "+databazeFilmu.get(ind1).getRok());
+				if(databazeFilmu.get(ind1).getClass().getName()=="pc2t_projekt.Animovany") {
+					System.out.println("Doporuceny vek divaka: "+((Animovany) databazeFilmu.get(ind1)).getVekDivaka()+"\nSeznam animatoru:");
+					for(int j=0; j < ((Animovany) databazeFilmu.get(ind1)).getSeznamAnimatoru().size();j++) {
+						System.out.println(((Animovany) databazeFilmu.get(ind1)).getSeznamAnimatoru().get(j).getJmeno());
+					}
+				} else {
+					System.out.println("Seznam hercu:");
+					for(int j=0; j < ((Hrany) databazeFilmu.get(ind1)).getSeznamHercu().size();j++) {			
+						System.out.println(((Hrany) databazeFilmu.get(ind1)).getSeznamHercu().get(j).getJmeno());
+					}
+				}
+				Collections.sort(databazeFilmu.get(ind1).getHodnoceni());
+				System.out.println("Hodnoceni:");
+				for (int i=0; i<databazeFilmu.get(ind1).getHodnoceni().size();i++) {
+					System.out.println(databazeFilmu.get(ind1).getHodnoceni().get(i).getSkore()+" "+databazeFilmu.get(ind1).getHodnoceni().get(i).getSlovni());
+				}
 				break;
 			case 7:
 				break;
@@ -251,7 +325,7 @@ public class Main {
 				
 		}
 		if(run) {
-			System.out.println("\n\nZmacknete ENTER pro pokracovani");
+			 System.out.println("\n\nZmacknete ENTER pro pokracovani");
 			sc.nextLine();
 			sc.nextLine();
 			}

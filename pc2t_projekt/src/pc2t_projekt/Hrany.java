@@ -8,14 +8,7 @@ public class Hrany extends Film{
 		this.reziser=b;
 		this.rok=c;
 		seznamHercu = new ArrayList<>();
-	}
-	
-	public int getHranyHodnoceni() {
-		return hranyHodnoceni;
-	}
-
-	public void setHranyHodnoceni(int hranyHodnoceni) {
-		this.hranyHodnoceni = hranyHodnoceni;
+		hodnoceni = new ArrayList<>();
 	}
 	
 	public List<Herec> getSeznamHercu(){
@@ -30,6 +23,6 @@ public class Hrany extends Film{
 		seznamHercu.remove(herec);	
 	}
 
-	private int hranyHodnoceni;
+	public final float maxHodnoceni = 5;
 	private List<Herec> seznamHercu;
 }

@@ -8,6 +8,7 @@ public class Animovany extends Film {
 		this.rok=rok;
 		this.setVekDivaka(vekDivaka);
 		seznamAnimatoru = new ArrayList<>();
+		hodnoceni = new ArrayList<>();
 	}
 	
 	public int getVekDivaka() {
@@ -16,14 +17,6 @@ public class Animovany extends Film {
 
 	public void setVekDivaka(int vekDivaka) {
 		this.vekDivaka = vekDivaka;
-	}
-
-	public int getAnimovaneHodnoceni() {
-		return animovaneHodnoceni;
-	}
-
-	public void setAnimovaneHodnoceni(int animovaneHodnoceni) {
-		this.animovaneHodnoceni = animovaneHodnoceni;
 	}
 
 	public List<Animator> getSeznamAnimatoru() {
@@ -38,7 +31,7 @@ public class Animovany extends Film {
 		seznamAnimatoru.remove(animator);
 	}
 	
+	public final float maxHodnoceni = 10;
 	private int vekDivaka;
-	private int animovaneHodnoceni;
 	private List<Animator> seznamAnimatoru;
 }
