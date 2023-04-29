@@ -9,11 +9,11 @@ abstract public class Film {
 		this.nazev = nazev;
 	}
 
-	public String getReziser() {
+	public Reziser getReziser() {
 		return reziser;
 	}
 
-	public void setReziser(String reziser) {
+	public void setReziser(Reziser reziser) {
 		this.reziser = reziser;
 	}
 
@@ -25,8 +25,8 @@ abstract public class Film {
 		this.rok = rok;
 	}
 
-
+	
 	protected String nazev;
-	protected String reziser;
+	protected Reziser reziser;
 	protected int rok;
 }

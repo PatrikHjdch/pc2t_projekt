@@ -1,5 +1,5 @@
 package pc2t_projekt;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 	public static int pouzeCelaCisla(Scanner sc) 
@@ -20,6 +20,17 @@ public class Main {
 	}
 	
 	public static void main(String[] args) {
+		
+		List<Film> databazeFilmu = new ArrayList<>();
+		
+		databazeFilmu.add(new Hrany("Hrany film", new Reziser("Hrany reziser"), 2023));
+		((Hrany) databazeFilmu.get(0)).addHerec(new Herec("Herec1"));
+		((Hrany) databazeFilmu.get(0)).addHerec(new Herec("Herec2"));
+		((Hrany) databazeFilmu.get(0)).addHerec(new Herec("Herec3"));
+		databazeFilmu.add(new Animovany("Animak", new Reziser("AnimoReziser"), 2022, 9));
+		((Animovany) databazeFilmu.get(1)).addAnimator(new Animator("Animator1"));
+		((Animovany) databazeFilmu.get(1)).addAnimator(new Animator("Animator2"));
+		((Animovany) databazeFilmu.get(1)).addAnimator(new Animator("Animator3"));
 		
 		Scanner sc=new Scanner(System.in);
 		int volba;
@@ -43,7 +54,40 @@ public class Main {
 		switch(volba)
 		{
 			case 1:
-				System.out.println("1 .. Pridani noveho filmu");
+				System.out.println("Hrany nebo animovany?\n1...Hrany\n2...Animovany");
+				int typ=(pouzeCelaCisla(sc));
+				sc.nextLine();
+				
+				System.out.println("Nazev:");
+				String jmeno = sc.nextLine();
+				
+				System.out.println("Reziser:");
+				Reziser reziser = new Reziser(sc.next());
+				
+				System.out.println("Rok vydani:");
+				int rok =  pouzeCelaCisla(sc);
+				
+				switch(typ) {
+					case 1:
+						databazeFilmu.add(new Hrany(jmeno, reziser, rok));
+						
+						System.out.println("Seznam hercu (\"0\" pro dokonceni):");
+						while(sc.nextLine()!="0") {
+							((Hrany) databazeFilmu.get(databazeFilmu.size()-1)).addHerec(new Herec(sc.nextLine()));
+						}
+						break;
+					case 2:
+						System.out.println("Doporuceny vek divaka:");
+						int vekDivaka = pouzeCelaCisla(sc);
+						databazeFilmu.add(new Animovany(jmeno, reziser, rok, vekDivaka));
+
+						System.out.println("Seznam animatoru (\"0\" pro dokonceni):");
+						while(sc.nextLine()!="0") {
+							((Animovany) databazeFilmu.get(databazeFilmu.size()-1)).addAnimator(new Animator(sc.nextLine()));
+						}
+						break;
+				}
+				System.out.println("Film uspesne ulozen!\n");
 				break;
 			case 2:
 				break;
@@ -52,6 +96,19 @@ public class Main {
 			case 4:
 				break;
 			case 5:
+				for(int i=0; i<databazeFilmu.size();i++) {
+					System.out.println("\nNazev: "+databazeFilmu.get(i).getNazev()+"\nReziser: "+databazeFilmu.get(i).getReziser().getJmeno()+"\nRok: "+databazeFilmu.get(i).getRok());
+					if(databazeFilmu.get(i).getClass().getName()=="pc2t_projekt.Animovany") {
+						System.out.println("Doporuceny vek divaka: "+((Animovany) databazeFilmu.get(i)).getVekDivaka()+"\nSeznam animatoru:");
+						for(int j=0; j < ((Animovany) databazeFilmu.get(i)).getSeznamAnimatoru().size();j++) {
+							System.out.println(((Animovany) databazeFilmu.get(i)).getSeznamAnimatoru().get(j).getJmeno());
+						}
+					} else {
+						for(int j=0; j < ((Hrany) databazeFilmu.get(i)).getSeznamHercu().size();j++) {
+							System.out.println(((Hrany) databazeFilmu.get(i)).getSeznamHercu().get(j).getJmeno());
+						}
+					}
+				}
 				break;
 			case 6:
 				break;
