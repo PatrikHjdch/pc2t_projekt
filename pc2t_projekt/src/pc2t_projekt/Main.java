@@ -58,6 +58,15 @@ public class Main {
 		((Animovany) databazeFilmu.get(1)).addAnimator(new Animator("Animator1"));
 		((Animovany) databazeFilmu.get(1)).addAnimator(new Animator("Animator2"));
 		((Animovany) databazeFilmu.get(1)).addAnimator(new Animator("Animator3"));
+		databazeFilmu.add(new Hrany("Nakameru", new Reziser("Rejze"),65));
+		databazeFilmu.add(new Hrany("nahrany", new Reziser("Rejze Jr."),654));
+		((Hrany) databazeFilmu.get(2)).addHerec(new Herec("Herec1"));
+		((Hrany) databazeFilmu.get(2)).addHerec(new Herec("Herec2"));
+		((Hrany) databazeFilmu.get(2)).addHerec(new Herec("Herec4"));
+		((Hrany) databazeFilmu.get(3)).addHerec(new Herec("Herec2"));
+		((Hrany) databazeFilmu.get(3)).addHerec(new Herec("Herec4"));
+		((Hrany) databazeFilmu.get(3)).addHerec(new Herec("Herec5"));
+		
 		
 		Scanner sc=new Scanner(System.in);
 		int volba;
@@ -312,6 +321,29 @@ public class Main {
 				}
 				break;
 			case 7:
+				Map<String, List<String>> mapaLidi = new HashMap<>();
+				for (Film film : databazeFilmu) {
+					if (film.getClass().getName()=="pc2t_projekt.Hrany") {		
+						for (Herec herec : ((Hrany) film).getSeznamHercu()){
+							List <String> seznamFilmu = mapaLidi.getOrDefault(herec.getJmeno(), new ArrayList<>());
+							seznamFilmu.add(film.getNazev());
+							mapaLidi.put(herec.getJmeno(), seznamFilmu);
+						}
+															
+						}
+					else {
+						for (Animator animator : ((Animovany) film).getSeznamAnimatoru()) {
+							List <String> seznamFilmu = mapaLidi.getOrDefault(animator.getJmeno(), new ArrayList<>());
+							seznamFilmu.add(film.getNazev());
+							mapaLidi.put(animator.getJmeno(), seznamFilmu);
+						}
+					}
+				}
+				for (Map.Entry<String, List<String>> clovek : mapaLidi.entrySet()) {
+					if (clovek.getValue().size()>1) {
+						System.out.println(clovek.getKey()+"\n"+clovek.getValue());
+					}
+				}
 				break;
 			case 8:
 				break;
