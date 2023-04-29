@@ -1,12 +1,12 @@
 package pc2t_projekt;
 
 public class Animovany extends Film {
-	public Animovany(String a, String b, int c, float d, int e) {
-		this.nazev=a;
-		this.reziser=b;
-		this.rok=c;
-		this.hodnoceni=d;
-		this.setVekDivaka(e);
+	public Animovany(String nazev, String reziser, int rok, float hodnoceni, int vekDivaka) {
+		this.nazev=nazev;
+		this.reziser=reziser;
+		this.rok=rok;
+		this.hodnoceni=hodnoceni;
+		this.setVekDivaka(vekDivaka);
 	}
 	
 	public int getVekDivaka() {
