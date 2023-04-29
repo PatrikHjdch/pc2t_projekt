@@ -72,7 +72,7 @@ public class Main {
 						databazeFilmu.add(new Hrany(jmeno, reziser, rok));
 						
 						System.out.println("Seznam hercu (\"0\" pro dokonceni):");
-						while(sc.nextLine()!="0") {
+						while(sc.nextInt()!=0) {
 							((Hrany) databazeFilmu.get(databazeFilmu.size()-1)).addHerec(new Herec(sc.nextLine()));
 						}
 						break;
@@ -82,7 +82,7 @@ public class Main {
 						databazeFilmu.add(new Animovany(jmeno, reziser, rok, vekDivaka));
 
 						System.out.println("Seznam animatoru (\"0\" pro dokonceni):");
-						while(sc.nextLine()!="0") {
+						while(sc.nextInt()!=0) {
 							((Animovany) databazeFilmu.get(databazeFilmu.size()-1)).addAnimator(new Animator(sc.nextLine()));
 						}
 						break;
@@ -92,6 +92,15 @@ public class Main {
 			case 2:
 				break;
 			case 3:
+				System.out.println("Nazev filmu pro smazani:");
+				sc.nextLine();
+				String jmenoSmazani = sc.nextLine();
+				for(int i=0; i<databazeFilmu.size();i++) {
+					if (jmenoSmazani==databazeFilmu.get(i).getNazev()) {
+						databazeFilmu.remove(i);
+						System.out.print("Film byl vymazan");
+					}
+				}
 				break;
 			case 4:
 				break;
