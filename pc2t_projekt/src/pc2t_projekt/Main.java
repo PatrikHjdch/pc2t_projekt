@@ -55,7 +55,7 @@ public class Main {
 		
 		List<Film> databazeFilmu = new ArrayList<>();
 		
-		databazeFilmu.add(new Hrany("Hrany film", new Reziser("Hrany reziser"), 2023));
+		/*databazeFilmu.add(new Hrany("Hrany film", new Reziser("Hrany reziser"), 2023));
 		((Hrany) databazeFilmu.get(0)).addHerec(new Herec("Herec1"));
 		((Hrany) databazeFilmu.get(0)).addHerec(new Herec("Herec2"));
 		((Hrany) databazeFilmu.get(0)).addHerec(new Herec("Herec3"));
@@ -70,7 +70,7 @@ public class Main {
 		((Hrany) databazeFilmu.get(2)).addHerec(new Herec("Herec4"));
 		((Hrany) databazeFilmu.get(3)).addHerec(new Herec("Herec2"));
 		((Hrany) databazeFilmu.get(3)).addHerec(new Herec("Herec4"));
-		((Hrany) databazeFilmu.get(3)).addHerec(new Herec("Herec5"));
+		((Hrany) databazeFilmu.get(3)).addHerec(new Herec("Herec5"));*/
 		
 		
 		Scanner sc=new Scanner(System.in);
@@ -394,7 +394,7 @@ public class Main {
 				      out.writeObject(databazeFilmu.get(ind2));
 				      out.close();
 				      fileOut.close();
-				      System.out.println("Film data is saved in film.ser file");
+				      System.out.println("Filmove data jsou ulozene ve film.ser souboru");
 				    } catch (Exception e) {
 				      e.printStackTrace();
 				      }
