@@ -1,6 +1,8 @@
 package pc2t_projekt;
 
-abstract public class Clovek {
+import java.io.Serializable;
+
+abstract public class Clovek implements Serializable{
 	Clovek(String jmeno){
 		this.jmeno=jmeno;
 	}

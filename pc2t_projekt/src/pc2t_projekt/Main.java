@@ -403,17 +403,21 @@ public class Main {
 			    try {
 			        FileInputStream fileIn = new FileInputStream("film.ser");
 			        ObjectInputStream in = new ObjectInputStream(fileIn);
-			       //databazeFilmu = (ArrayList<Film>) in.readObject();
-			        databazeFilmu.add((Film) in.readObject());
+			        Film film = (Film) in.readObject();
+			        databazeFilmu.add(film);
 			        in.close();
 			        fileIn.close();
-			        System.out.println("Film data is saved in film.ser file");
+			        
+			        System.out.println("Film je nacten z film.ser souboru:");
+
 			      } catch (Exception e) {
 			        e.printStackTrace();
 			        }
+				
 				break;	
 			case 11:
 				run = false;
+				
 				break;
 				
 		}
