@@ -1,5 +1,10 @@
 package pc2t_projekt;
 import java.util.*;
+import java.io.ObjectOutputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.FileInputStream;
+import java.io.Serializable;
 
 public class Main {
 	public static int pouzeCelaCisla(Scanner sc) 
@@ -346,10 +351,67 @@ public class Main {
 				}
 				break;
 			case 8:
+				System.out.println("Jmeno herce/animatora:");
+				sc.nextLine();
+				String herec=sc.nextLine();
+				System.out.println("Filmy:");
+				for (int i=0;i<databazeFilmu.size();i++) {
+					if(databazeFilmu.get(i).getClass().getName()=="pc2t_projekt.Animovany") 
+					{
+						for (int j=0;j< ((Animovany) databazeFilmu.get(i)).getSeznamAnimatoru().size();j++) 
+						{
+							if (herec.equals(((Animovany) databazeFilmu.get(i)).getSeznamAnimatoru().get(j).getJmeno())) 
+							{
+								System.out.println(((Animovany) databazeFilmu.get(i)).getNazev());
+							}
+						}
+					}
+					else {
+						for (int j=0;j<((Hrany) databazeFilmu.get(i)).getSeznamHercu().size();j++) 
+						{
+								if (herec.equals(((Hrany) databazeFilmu.get(i)).getSeznamHercu().get(j).getJmeno())) 
+								{
+									System.out.println(((Hrany) databazeFilmu.get(i)).getNazev());
+								}
+						}
+						
+						}
+					
+				}
 				break;
 			case 9:
+				/*System.out.println("Nazev filmu:");
+				sc.nextLine();
+				String nazev2 = sc.nextLine();
+				int ind2 = findFilm(databazeFilmu, nazev2);
+				if (ind2==-1) {
+					System.out.println("Film nenalezen.");
+					break;
+				}
+				try {
+				      FileOutputStream fileOut = new FileOutputStream("film.ser");
+				      ObjectOutputStream out = new ObjectOutputStream(fileOut);
+				      out.writeObject(databazeFilmu.get(ind2));
+				      out.close();
+				      fileOut.close();
+				      System.out.println("Film data is saved in film.ser file");
+				    } catch (Exception e) {
+				      e.printStackTrace();
+				      }*/
 				break;
 			case 10:
+			    /*try {
+			        FileInputStream fileIn = new FileInputStream("film.ser");
+			        ObjectInputStream in = new ObjectInputStream(fileIn);
+			        Film film = (Film) in.readObject();
+			        in.close();
+			        fileIn.close();
+
+			        System.out.println("Title: " + film.getTitle());
+			        System.out.println("Director: " + film.getDirector());
+			        System.out.println("Year: " + film.getYear());
+			      } catch (Exception e) {
+			        e.printStackTrace();*/
 				break;	
 			case 11:
 				run = false;
