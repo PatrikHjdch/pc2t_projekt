@@ -2,23 +2,9 @@ package pc2t_projekt;
 
 import java.sql.*;
 
-public class SQLiteExample {
+public class SQL {
     private static Connection conn;
     
-    public static void main(String[] args) {
-        // Connect to the SQLite database
-        connect();
-        
-        // Create the film table
-        createTable();
-        
-        // Insert a new Film object into the table
-        Film film = new Film("Animak", new Reziser("Jiri Trnka"), 2022, 9);
-        insertFilm(film);
-        
-        // Close the connection to the database
-        disconnect();
-    }
     
     public static void connect() {
         try {

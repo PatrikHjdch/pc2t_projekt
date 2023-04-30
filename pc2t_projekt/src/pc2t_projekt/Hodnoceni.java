@@ -1,6 +1,8 @@
 package pc2t_projekt;
 
-public class Hodnoceni implements Comparable<Hodnoceni>{
+import java.io.Serializable;
+
+public class Hodnoceni implements Comparable<Hodnoceni> , Serializable{
 	Hodnoceni(float num, String slovniHodnoceni){
 		this.setSkore(num);
 		this.setSlovni(slovniHodnoceni);

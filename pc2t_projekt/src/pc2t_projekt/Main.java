@@ -5,7 +5,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.FileInputStream;
 import java.io.Serializable;
-
+import java.sql.*;
 public class Main {
 	public static int pouzeCelaCisla(Scanner sc) 
 	{
@@ -55,7 +55,7 @@ public class Main {
 		
 		List<Film> databazeFilmu = new ArrayList<>();
 		
-		/*databazeFilmu.add(new Hrany("Hrany film", new Reziser("Hrany reziser"), 2023));
+		databazeFilmu.add(new Hrany("Hrany film", new Reziser("Hrany reziser"), 2023));
 		((Hrany) databazeFilmu.get(0)).addHerec(new Herec("Herec1"));
 		((Hrany) databazeFilmu.get(0)).addHerec(new Herec("Herec2"));
 		((Hrany) databazeFilmu.get(0)).addHerec(new Herec("Herec3"));
@@ -70,7 +70,7 @@ public class Main {
 		((Hrany) databazeFilmu.get(2)).addHerec(new Herec("Herec4"));
 		((Hrany) databazeFilmu.get(3)).addHerec(new Herec("Herec2"));
 		((Hrany) databazeFilmu.get(3)).addHerec(new Herec("Herec4"));
-		((Hrany) databazeFilmu.get(3)).addHerec(new Herec("Herec5"));*/
+		((Hrany) databazeFilmu.get(3)).addHerec(new Herec("Herec5"));
 		
 		
 		Scanner sc=new Scanner(System.in);
@@ -416,6 +416,26 @@ public class Main {
 				
 				break;	
 			case 11:
+			    
+			    
+		        // Connect to the SQLite database
+		        SQL.connect();
+		        
+		        // Create the film table
+		        SQL.createTable();
+		        
+		        // Insert a new Film object into the table
+		        //if 
+		        //Film film = new (Animovany) Film("Animak", new Reziser("Jiri Trnka"), 2022, 9);
+		        for (int i =0;i<databazeFilmu.size();i++) {
+		        	SQL.insertFilm(databazeFilmu.get(i));
+		        }
+		       
+		        
+		        // Close the connection to the database
+		        SQL.disconnect();
+		    
+
 				run = false;
 				
 				break;
