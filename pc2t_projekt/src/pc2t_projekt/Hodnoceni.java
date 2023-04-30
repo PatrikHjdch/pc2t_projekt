@@ -8,6 +8,10 @@ public class Hodnoceni implements Comparable<Hodnoceni> , Serializable{
 		this.setSlovni(slovniHodnoceni);
 	}
 	
+	public Hodnoceni() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public float getSkore() {
 		return skore;
 	}

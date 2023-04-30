@@ -6,6 +6,7 @@ import java.io.ObjectInputStream;
 import java.io.FileInputStream;
 import java.io.Serializable;
 import java.sql.*;
+
 public class Main {
 	public static int pouzeCelaCisla(Scanner sc) 
 	{
@@ -55,7 +56,18 @@ public class Main {
 		
 		List<Film> databazeFilmu = new ArrayList<>();
 		
-		databazeFilmu.add(new Hrany("Hrany film", new Reziser("Hrany reziser"), 2023));
+		try{
+			SQL.connect();
+			databazeFilmu = SQL.loadFilmy();
+			System.out.println("Databaze filmu uspesne nactena.");
+		} catch (SQLException e) {
+			System.out.println("Nepovedlo se nacist databazi filmu.");
+		} finally {
+			SQL.disconnect();
+		}
+		
+		
+		/*databazeFilmu.add(new Hrany("Hrany film", new Reziser("Hrany reziser"), 2023));
 		((Hrany) databazeFilmu.get(0)).addHerec(new Herec("Herec1"));
 		((Hrany) databazeFilmu.get(0)).addHerec(new Herec("Herec2"));
 		((Hrany) databazeFilmu.get(0)).addHerec(new Herec("Herec3"));
@@ -70,13 +82,14 @@ public class Main {
 		((Hrany) databazeFilmu.get(2)).addHerec(new Herec("Herec4"));
 		((Hrany) databazeFilmu.get(3)).addHerec(new Herec("Herec2"));
 		((Hrany) databazeFilmu.get(3)).addHerec(new Herec("Herec4"));
-		((Hrany) databazeFilmu.get(3)).addHerec(new Herec("Herec5"));
+		((Hrany) databazeFilmu.get(3)).addHerec(new Herec("Herec5"));*/
 		
 		
 		Scanner sc=new Scanner(System.in);
 		int volba;
 		boolean run = true;
-		
+		System.out.println("\n\nZmacknete ENTER pro pokracovani");
+		sc.nextLine();
 		while(run)
 		{
 			System.out.println("-------------\nVyberte pozadovanou cinnost:\n");
