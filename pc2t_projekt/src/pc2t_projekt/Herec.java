@@ -1,6 +1,8 @@
 package pc2t_projekt;
 
-public class Herec extends Clovek {
+import java.io.Serializable;
+
+public class Herec extends Clovek implements Serializable{
 	Herec(String jmeno){
 		super(jmeno);
 	}

@@ -380,7 +380,7 @@ public class Main {
 				}
 				break;
 			case 9:
-				/*System.out.println("Nazev filmu:");
+				System.out.println("Nazev filmu:");
 				sc.nextLine();
 				String nazev2 = sc.nextLine();
 				int ind2 = findFilm(databazeFilmu, nazev2);
@@ -397,21 +397,20 @@ public class Main {
 				      System.out.println("Film data is saved in film.ser file");
 				    } catch (Exception e) {
 				      e.printStackTrace();
-				      }*/
+				      }
 				break;
 			case 10:
-			    /*try {
+			    try {
 			        FileInputStream fileIn = new FileInputStream("film.ser");
 			        ObjectInputStream in = new ObjectInputStream(fileIn);
-			        Film film = (Film) in.readObject();
+			       //databazeFilmu = (ArrayList<Film>) in.readObject();
+			        databazeFilmu.add((Film) in.readObject());
 			        in.close();
 			        fileIn.close();
-
-			        System.out.println("Title: " + film.getTitle());
-			        System.out.println("Director: " + film.getDirector());
-			        System.out.println("Year: " + film.getYear());
+			        System.out.println("Film data is saved in film.ser file");
 			      } catch (Exception e) {
-			        e.printStackTrace();*/
+			        e.printStackTrace();
+			        }
 				break;	
 			case 11:
 				run = false;
@@ -421,7 +420,7 @@ public class Main {
 		if(run) {
 			 System.out.println("\n\nZmacknete ENTER pro pokracovani");
 			sc.nextLine();
-			sc.nextLine();
+			//sc.nextLine();
 			}
 		}
 	}

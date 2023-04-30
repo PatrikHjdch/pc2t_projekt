@@ -1,8 +1,9 @@
 package pc2t_projekt;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Hrany extends Film{
+public class Hrany extends Film implements Serializable{
 	public Hrany(String a, Reziser b, int c) {
 		this.nazev=a;
 		this.reziser=b;

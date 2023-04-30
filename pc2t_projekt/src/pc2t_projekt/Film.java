@@ -1,7 +1,8 @@
 package pc2t_projekt;
+import java.io.Serializable;
 import java.util.*;
 
-abstract public class Film {
+abstract public class Film implements Serializable{
 	
 	public final float maxHodnoceni=-1;
 	

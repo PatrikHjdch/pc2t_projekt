@@ -1,6 +1,8 @@
 package pc2t_projekt;
 
-public class Animator extends Clovek {
+import java.io.Serializable;
+
+public class Animator extends Clovek implements Serializable{
 	Animator(String jmeno){
 		super(jmeno);
 	}

@@ -1,7 +1,8 @@
 package pc2t_projekt;
+import java.io.Serializable;
 import java.util.*;
 
-public class Animovany extends Film {
+public class Animovany extends Film implements Serializable{
 	public Animovany(String nazev, Reziser reziser, int rok, int vekDivaka) {
 		this.nazev=nazev;
 		this.reziser=reziser;

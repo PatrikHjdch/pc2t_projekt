@@ -4,6 +4,9 @@ abstract public class Clovek {
 	Clovek(String jmeno){
 		this.jmeno=jmeno;
 	}
+	public Clovek() {
+		
+	}
 	
 	private String jmeno;
 	
