@@ -95,8 +95,9 @@ public class SQL {
             }
             stmt.executeUpdate();
             
-            sql="SELECT COUNT(*) FROM film";
+            sql="SELECT id FROM film WHERE nazev = ?";
             stmt = conn.prepareStatement(sql);
+            stmt.setString(1, film.getNazev());
             ResultSet rs = stmt.executeQuery();
             int idFilmu=rs.getInt(1);
             
@@ -107,8 +108,10 @@ public class SQL {
             for (Hodnoceni hodnoceni : film.getHodnoceni()) {
             	stmt.setFloat(2, hodnoceni.getSkore());
             	stmt.setString(3, hodnoceni.getSlovni());
+            	System.out.println(stmt.toString());
+            	stmt.executeUpdate();
+            	System.out.println("Review data inserted into database.");
             }
-            stmt.executeUpdate();
             
             
             System.out.println("Film data inserted into database.");
@@ -121,13 +124,13 @@ public class SQL {
     	List<Film> novaDatabaze = new ArrayList<>();
     	String sql = "SELECT nazev, reziser, rok, doporuceny_vek_divaka, lidi FROM film";
     	PreparedStatement stmt=conn.prepareStatement(sql);
-    		ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                String nazev = rs.getString("nazev");
-                Reziser reziser = new Reziser(rs.getString("reziser"));
-                int rok = rs.getInt("rok");
-                int vekDivaka = rs.getInt("doporuceny_vek_divaka");
-                String stringLidi = rs.getString("lidi");
+    		ResultSet rsFilmy = stmt.executeQuery();
+            while (rsFilmy.next()) {
+                String nazev = rsFilmy.getString("nazev");
+                Reziser reziser = new Reziser(rsFilmy.getString("reziser"));
+                int rok = rsFilmy.getInt("rok");
+                int vekDivaka = rsFilmy.getInt("doporuceny_vek_divaka");
+                String stringLidi = rsFilmy.getString("lidi");
                 System.out.println(stringLidi);
                 if (vekDivaka==0) {
                 	List<Herec> herci = parseHerci(stringLidi);
@@ -135,7 +138,19 @@ public class SQL {
                 	for (Herec herec : herci) {
                 		film.addHerec(herec);
                 	}
-                	novaDatabaze.add(film);
+                	
+                	sql = "SELECT hodnoceni.skore, hodnoceni.slovni FROM film JOIN hodnoceni ON film.id = hodnoceni.id_filmu WHERE film.nazev = ?";
+                	stmt = conn.prepareStatement(sql);
+                	stmt.setString(1, nazev);
+                	ResultSet rsHodnoceni = stmt.executeQuery();
+                	while (rsHodnoceni.next()) {
+                		Hodnoceni hodnoceni = new Hodnoceni();
+                		hodnoceni.setSkore(rsHodnoceni.getFloat("skore"));
+                		hodnoceni.setSlovni(rsHodnoceni.getString("slovni"));
+                		film.addHodnoceni(hodnoceni);
+                	}
+                	rsHodnoceni.close();
+                    novaDatabaze.add(film);                	
                 }
                 else {
                 	List<Animator> animatori = parseAnimatori(stringLidi);
@@ -143,22 +158,23 @@ public class SQL {
                 	for (Animator animator : animatori) {
                 		film.addAnimator(animator);
                 	}
-                	
-                sql = "SELECT hodnoceni.skore, hodnoceni.slovni FROM film JOIN hodnoceni ON film.id = hodnoceni.id_filmu WHERE film.nazev = ?";
-                stmt = conn.prepareStatement(sql);
-                stmt.setString(1, nazev);
-                ResultSet rs2 = stmt.executeQuery();
-                Hodnoceni hodnoceni = new Hodnoceni();
-                while (rs.next()) {
-                	hodnoceni.setSkore(rs.getFloat("hodnoceni.skore"));
-                	hodnoceni.setSlovni(rs.getString("hodnoceni.slovni"));
-                	film.addHodnoceni(hodnoceni);
-                }
-                rs2.close();
-                
-                novaDatabaze.add(film);
-                }
-                
+                	sql = "SELECT hodnoceni.skore, hodnoceni.slovni FROM film JOIN hodnoceni ON film.id = hodnoceni.id_filmu WHERE film.nazev = ?";
+                	stmt = conn.prepareStatement(sql);
+                	stmt.setString(1, nazev);
+                	ResultSet rsHodnoceni = stmt.executeQuery();
+                	while (rsHodnoceni.next()) {
+                		Hodnoceni hodnoceni = new Hodnoceni();
+                		float skoreTemp = rsHodnoceni.getFloat("skore");
+                		System.out.print(skoreTemp);
+                		hodnoceni.setSkore(skoreTemp);
+                		String slovniTemp = rsHodnoceni.getString("slovni");
+                		System.out.print(" "+slovniTemp+"\n");
+                		hodnoceni.setSlovni(slovniTemp);
+                		film.addHodnoceni(hodnoceni);
+                	}
+                	rsHodnoceni.close();
+                    novaDatabaze.add(film);
+                }                	              
             }
             return novaDatabaze;
     }

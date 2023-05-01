@@ -1,10 +1,6 @@
 package pc2t_projekt;
 import java.util.*;
-import java.io.ObjectOutputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.FileInputStream;
-import java.io.Serializable;
+import java.io.*;
 import java.sql.*;
 
 public class Main {
@@ -62,28 +58,10 @@ public class Main {
 			System.out.println("Databaze filmu uspesne nactena.");
 		} catch (SQLException e) {
 			System.out.println("Nepovedlo se nacist databazi filmu.");
+			//e.printStackTrace();
 		} finally {
 			SQL.disconnect();
 		}
-		
-		
-		/*databazeFilmu.add(new Hrany("Hrany film", new Reziser("Hrany reziser"), 2023));
-		((Hrany) databazeFilmu.get(0)).addHerec(new Herec("Herec1"));
-		((Hrany) databazeFilmu.get(0)).addHerec(new Herec("Herec2"));
-		((Hrany) databazeFilmu.get(0)).addHerec(new Herec("Herec3"));
-		databazeFilmu.add(new Animovany("Animak", new Reziser("AnimoReziser"), 2022, 9));
-		((Animovany) databazeFilmu.get(1)).addAnimator(new Animator("Animator1"));
-		((Animovany) databazeFilmu.get(1)).addAnimator(new Animator("Animator2"));
-		((Animovany) databazeFilmu.get(1)).addAnimator(new Animator("Animator3"));
-		databazeFilmu.add(new Hrany("Nakameru", new Reziser("Rejze"),65));
-		databazeFilmu.add(new Hrany("nahrany", new Reziser("Rejze Jr."),654));
-		((Hrany) databazeFilmu.get(2)).addHerec(new Herec("Herec1"));
-		((Hrany) databazeFilmu.get(2)).addHerec(new Herec("Herec2"));
-		((Hrany) databazeFilmu.get(2)).addHerec(new Herec("Herec4"));
-		((Hrany) databazeFilmu.get(3)).addHerec(new Herec("Herec2"));
-		((Hrany) databazeFilmu.get(3)).addHerec(new Herec("Herec4"));
-		((Hrany) databazeFilmu.get(3)).addHerec(new Herec("Herec5"));*/
-		
 		
 		Scanner sc=new Scanner(System.in);
 		int volba;
@@ -107,6 +85,24 @@ public class Main {
 		volba=pouzeCelaCisla(sc);
 		switch(volba)
 		{
+			case -1:
+				databazeFilmu.add(new Hrany("Hrany film", new Reziser("Hrany reziser"), 2023));
+				((Hrany) databazeFilmu.get(0)).addHerec(new Herec("Herec1"));
+				((Hrany) databazeFilmu.get(0)).addHerec(new Herec("Herec2"));
+				((Hrany) databazeFilmu.get(0)).addHerec(new Herec("Herec3"));
+				databazeFilmu.add(new Animovany("Animak", new Reziser("AnimoReziser"), 2022, 9));
+				((Animovany) databazeFilmu.get(1)).addAnimator(new Animator("Animator1"));
+				((Animovany) databazeFilmu.get(1)).addAnimator(new Animator("Animator2"));
+				((Animovany) databazeFilmu.get(1)).addAnimator(new Animator("Animator3"));
+				databazeFilmu.add(new Hrany("Nakameru", new Reziser("Rejze"),65));
+				databazeFilmu.add(new Hrany("nahrany", new Reziser("Rejze Jr."),654));
+				((Hrany) databazeFilmu.get(2)).addHerec(new Herec("Herec1"));
+				((Hrany) databazeFilmu.get(2)).addHerec(new Herec("Herec2"));
+				((Hrany) databazeFilmu.get(2)).addHerec(new Herec("Herec4"));
+				((Hrany) databazeFilmu.get(3)).addHerec(new Herec("Herec2"));
+				((Hrany) databazeFilmu.get(3)).addHerec(new Herec("Herec4"));
+				((Hrany) databazeFilmu.get(3)).addHerec(new Herec("Herec5"));
+				break;
 			case 1:
 				System.out.println("Hrany nebo animovany?\n1...Hrany\n2...Animovany");
 				int typ=(pouzeCelaCisla(sc));
@@ -310,6 +306,7 @@ public class Main {
 						}
 					}
 				}
+				sc.nextLine();
 				break;
 			case 6:
 				System.out.println("Nazev filmu:");
@@ -362,6 +359,7 @@ public class Main {
 						System.out.println(clovek.getKey()+"\n"+clovek.getValue());
 					}
 				}
+				sc.nextLine();
 				break;
 			case 8:
 				System.out.println("Jmeno herce/animatora:");
@@ -429,35 +427,26 @@ public class Main {
 				
 				break;	
 			case 11:
-			    
-			    
-		        // Connect to the SQLite database
+				File dbFile = new File("films.db");
+				File dbOld = new File("films.old.db");
+				if (dbFile.exists()) {
+					if (dbOld.exists()) {
+						dbOld.delete();
+					}
+					dbFile.renameTo(dbOld);
+				}
 		        SQL.connect();
-		        
-		        // Create the film table
 		        SQL.createTable();
-		        
-		        // Insert a new Film object into the table
-		        //if 
-		        //Film film = new (Animovany) Film("Animak", new Reziser("Jiri Trnka"), 2022, 9);
 		        for (int i =0;i<databazeFilmu.size();i++) {
 		        	SQL.insertFilm(databazeFilmu.get(i));
 		        }
-		       
-		        
-		        // Close the connection to the database
 		        SQL.disconnect();
-		    
-
 				run = false;
-				
 				break;
-				
 		}
 		if(run) {
 			 System.out.println("\n\nZmacknete ENTER pro pokracovani");
 			sc.nextLine();
-			//sc.nextLine();
 			}
 		}
 	}
