@@ -9,7 +9,6 @@ public class Hodnoceni implements Comparable<Hodnoceni> , Serializable{
 	}
 	
 	public Hodnoceni() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public float getSkore() {
