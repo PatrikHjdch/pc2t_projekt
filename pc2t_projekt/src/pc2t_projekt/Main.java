@@ -13,8 +13,7 @@ public class Main {
 		}
 		catch(Exception e)
 		{
-			System.out.println("Nastala vyjimka typu "+e.toString());
-			System.out.println("zadejte prosim cele cislo ");
+			System.out.println("Zadejte prosim cele cislo.");
 			sc.nextLine();
 			cislo = pouzeCelaCisla(sc);
 		}
@@ -30,8 +29,7 @@ public class Main {
 		}
 		catch(Exception e)
 		{
-			System.out.println("Nastala vyjimka typu "+e.toString());
-			System.out.println("zadejte prosim realne cislo ");
+			System.out.println("Zadejte prosim realne cislo.");
 			sc.nextLine();
 			cislo = pouzeCelaCisla(sc);
 		}
@@ -58,7 +56,6 @@ public class Main {
 			System.out.println("Databaze filmu uspesne nactena.");
 		} catch (SQLException e) {
 			System.out.println("Nepovedlo se nacist databazi filmu.");
-			//e.printStackTrace();
 		} finally {
 			SQL.disconnect();
 		}

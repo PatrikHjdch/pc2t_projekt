@@ -18,7 +18,7 @@ public class SQL {
             // Connect to the database file "films.db"
             conn = DriverManager.getConnection("jdbc:sqlite:films.db");
             
-            System.out.println("Connected to SQLite database.");
+            System.out.println("Pripojovani k databazi...");
         } catch (ClassNotFoundException | SQLException e) {
         	System.out.println("Nepovedlo se najit databazi filmu.");
         }
@@ -29,7 +29,7 @@ public class SQL {
             // Close the database connection
             conn.close();
             
-            System.out.println("Disconnected from SQLite database.");
+            System.out.println("Odpojovani od databaze...");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -49,8 +49,6 @@ public class SQL {
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.executeUpdate();
             
-            System.out.println("Film table created.");
-            
             sql = "CREATE TABLE IF NOT EXISTS hodnoceni("
                     + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + "id_filmu INT NOT NULL,"
@@ -59,8 +57,6 @@ public class SQL {
                     + "FOREIGN KEY (id_filmu) REFERENCES film(id));";
             stmt = conn.prepareStatement(sql);
             stmt.executeUpdate();
-
-            System.out.println("Review table created.");
             
         } catch (SQLException e) {
             e.printStackTrace();
@@ -110,11 +106,7 @@ public class SQL {
             	stmt.setString(3, hodnoceni.getSlovni());
             	System.out.println(stmt.toString());
             	stmt.executeUpdate();
-            	System.out.println("Review data inserted into database.");
             }
-            
-            
-            System.out.println("Film data inserted into database.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -131,7 +123,6 @@ public class SQL {
                 int rok = rsFilmy.getInt("rok");
                 int vekDivaka = rsFilmy.getInt("doporuceny_vek_divaka");
                 String stringLidi = rsFilmy.getString("lidi");
-                System.out.println(stringLidi);
                 if (vekDivaka==0) {
                 	List<Herec> herci = parseHerci(stringLidi);
                 	Hrany film = new Hrany(nazev, reziser, rok);
@@ -164,12 +155,8 @@ public class SQL {
                 	ResultSet rsHodnoceni = stmt.executeQuery();
                 	while (rsHodnoceni.next()) {
                 		Hodnoceni hodnoceni = new Hodnoceni();
-                		float skoreTemp = rsHodnoceni.getFloat("skore");
-                		System.out.print(skoreTemp);
-                		hodnoceni.setSkore(skoreTemp);
-                		String slovniTemp = rsHodnoceni.getString("slovni");
-                		System.out.print(" "+slovniTemp+"\n");
-                		hodnoceni.setSlovni(slovniTemp);
+                		hodnoceni.setSkore(rsHodnoceni.getFloat("skore"));
+                		hodnoceni.setSlovni(rsHodnoceni.getString("slovni"));
                 		film.addHodnoceni(hodnoceni);
                 	}
                 	rsHodnoceni.close();
