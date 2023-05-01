@@ -98,7 +98,6 @@ public class SQL {
             for (Hodnoceni hodnoceni : film.getHodnoceni()) {
             	stmt.setFloat(2, hodnoceni.getSkore());
             	stmt.setString(3, hodnoceni.getSlovni());
-            	System.out.println(stmt.toString());
             	stmt.executeUpdate();
             }
         } catch (SQLException e) {

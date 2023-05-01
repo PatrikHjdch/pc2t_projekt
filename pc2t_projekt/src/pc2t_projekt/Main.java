@@ -68,6 +68,7 @@ public class Main {
 		while(run)
 		{
 			System.out.println("-------------\nVyberte pozadovanou cinnost:\n");
+			System.out.println("-1 .. Vytvoreni 4 filmu (pouze pri prazdne databazi)");
 			System.out.println("1 .. Pridani noveho filmu");
 			System.out.println("2 .. Upraveni filmu");
 			System.out.println("3 .. Smazani filmu");
@@ -91,14 +92,18 @@ public class Main {
 				((Animovany) databazeFilmu.get(1)).addAnimator(new Animator("Animator1"));
 				((Animovany) databazeFilmu.get(1)).addAnimator(new Animator("Animator2"));
 				((Animovany) databazeFilmu.get(1)).addAnimator(new Animator("Animator3"));
-				databazeFilmu.add(new Hrany("Nakameru", new Reziser("Rejze"),65));
-				databazeFilmu.add(new Hrany("nahrany", new Reziser("Rejze Jr."),654));
+				databazeFilmu.add(new Hrany("Hrany film 2", new Reziser("Rejze"),65));
+				databazeFilmu.add(new Hrany("Hrany film 2: Episode 2", new Reziser("Rejze Jr."),654));
 				((Hrany) databazeFilmu.get(2)).addHerec(new Herec("Herec1"));
 				((Hrany) databazeFilmu.get(2)).addHerec(new Herec("Herec2"));
 				((Hrany) databazeFilmu.get(2)).addHerec(new Herec("Herec4"));
 				((Hrany) databazeFilmu.get(3)).addHerec(new Herec("Herec2"));
 				((Hrany) databazeFilmu.get(3)).addHerec(new Herec("Herec4"));
 				((Hrany) databazeFilmu.get(3)).addHerec(new Herec("Herec5"));
+				databazeFilmu.get(0).addHodnoceni(new Hodnoceni(5, "cool"));
+				databazeFilmu.get(1).addHodnoceni(new Hodnoceni(7, ""));
+				databazeFilmu.get(0).addHodnoceni(new Hodnoceni(3, ""));
+				databazeFilmu.get(0).addHodnoceni(new Hodnoceni(2, "meh"));
 				break;
 			case 1:
 				System.out.println("Hrany nebo animovany?\n1...Hrany\n2...Animovany");
